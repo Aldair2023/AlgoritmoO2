@@ -5,6 +5,8 @@
  */
 package interfaz;
 
+import clase.Mixto;
+
 /**
  *
  * @author aldair
@@ -16,6 +18,9 @@ public class Principal extends javax.swing.JFrame {
      */
     public Principal() {
         initComponents();
+        this.setLocationRelativeTo(this);
+        txtEnteroUno.requestFocusInWindow();
+        
     }
 
     /**
@@ -34,10 +39,10 @@ public class Principal extends javax.swing.JFrame {
         txtDenominadorCuatro = new javax.swing.JTextField();
         txtNumeradorCuatro = new javax.swing.JTextField();
         jSeparator1 = new javax.swing.JSeparator();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        cmdLimpiar = new javax.swing.JButton();
+        cmdCalcular = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        cmbOperaciones = new javax.swing.JComboBox<>();
         txtDenominadorUno = new javax.swing.JTextField();
         txtEnteroDos = new javax.swing.JTextField();
         txtNumeradorDos = new javax.swing.JTextField();
@@ -59,43 +64,94 @@ public class Principal extends javax.swing.JFrame {
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Operaciones Con Numero Mixto");
         jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 0, 620, 50));
+
+        txtNumeradorUno.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNumeradorUnoKeyTyped(evt);
+            }
+        });
         jPanel2.add(txtNumeradorUno, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 100, 40, 70));
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Fraccionario", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial", 2, 14))); // NOI18N
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        txtDenominadorCuatro.setEditable(false);
         jPanel1.add(txtDenominadorCuatro, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 150, 60, 100));
+
+        txtNumeradorCuatro.setEditable(false);
         jPanel1.add(txtNumeradorCuatro, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 30, 60, 100));
         jPanel1.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 140, 80, -1));
 
-        jPanel2.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 60, 150, 270));
+        jPanel2.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 70, 140, 270));
 
-        jButton1.setBackground(new java.awt.Color(0, 0, 0));
-        jButton1.setFont(new java.awt.Font("Arial", 2, 14)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setText("Limpiar");
-        jPanel2.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 330, 130, 40));
+        cmdLimpiar.setBackground(new java.awt.Color(0, 0, 0));
+        cmdLimpiar.setFont(new java.awt.Font("Arial", 2, 14)); // NOI18N
+        cmdLimpiar.setForeground(new java.awt.Color(255, 255, 255));
+        cmdLimpiar.setText("Limpiar");
+        jPanel2.add(cmdLimpiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 330, 130, 40));
 
-        jButton2.setBackground(new java.awt.Color(0, 0, 0));
-        jButton2.setFont(new java.awt.Font("Arial", 2, 14)); // NOI18N
-        jButton2.setForeground(new java.awt.Color(255, 255, 255));
-        jButton2.setText("Calcular");
-        jPanel2.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 330, 130, 40));
+        cmdCalcular.setBackground(new java.awt.Color(0, 0, 0));
+        cmdCalcular.setFont(new java.awt.Font("Arial", 2, 14)); // NOI18N
+        cmdCalcular.setForeground(new java.awt.Color(255, 255, 255));
+        cmdCalcular.setText("Calcular");
+        cmdCalcular.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmdCalcularActionPerformed(evt);
+            }
+        });
+        jPanel2.add(cmdCalcular, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 330, 130, 40));
 
         jLabel1.setFont(new java.awt.Font("Arial", 3, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("=");
         jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 180, -1, -1));
 
-        jComboBox1.setFont(new java.awt.Font("Arial", 3, 14)); // NOI18N
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "+", "-", "*", "/" }));
-        jPanel2.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 180, -1, -1));
+        cmbOperaciones.setFont(new java.awt.Font("Arial", 3, 14)); // NOI18N
+        cmbOperaciones.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "+", "-", "*", "/" }));
+        jPanel2.add(cmbOperaciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 180, -1, -1));
+
+        txtDenominadorUno.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtDenominadorUnoKeyTyped(evt);
+            }
+        });
         jPanel2.add(txtDenominadorUno, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 210, 40, 70));
+
+        txtEnteroDos.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtEnteroDosKeyTyped(evt);
+            }
+        });
         jPanel2.add(txtEnteroDos, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 160, 40, 70));
+
+        txtNumeradorDos.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNumeradorDosKeyTyped(evt);
+            }
+        });
         jPanel2.add(txtNumeradorDos, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 100, 40, 70));
+
+        txtDenominadorDos.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtDenominadorDosKeyTyped(evt);
+            }
+        });
         jPanel2.add(txtDenominadorDos, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 210, 40, 70));
+
+        txtEnteroTres.setEditable(false);
         jPanel2.add(txtEnteroTres, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 160, 40, 70));
+
+        txtNumeradorTres.setEditable(false);
         jPanel2.add(txtNumeradorTres, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 100, 40, 70));
+
+        txtDenominadorTres.setEditable(false);
         jPanel2.add(txtDenominadorTres, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 220, 40, 70));
+
+        txtEnteroUno.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtEnteroUnoKeyTyped(evt);
+            }
+        });
         jPanel2.add(txtEnteroUno, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 160, 40, 70));
         jPanel2.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 190, 40, 10));
         jPanel2.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 190, 40, 10));
@@ -118,6 +174,81 @@ public class Principal extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void txtEnteroUnoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtEnteroUnoKeyTyped
+        // TODO add your handling code here:
+        char c = evt.getKeyChar();
+
+        if (!Character.isDigit(c) && c != '-') {
+            getToolkit();
+
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtEnteroUnoKeyTyped
+
+    private void txtNumeradorUnoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNumeradorUnoKeyTyped
+        // TODO add your handling code here:
+        char c = evt.getKeyChar();
+
+        if (!Character.isDigit(c) && c != '-') {
+            getToolkit();
+
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtNumeradorUnoKeyTyped
+
+    private void txtDenominadorUnoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDenominadorUnoKeyTyped
+        // TODO add your handling code here:
+        char c = evt.getKeyChar();
+
+        if (!Character.isDigit(c) && c != '-') {
+            getToolkit();
+
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtDenominadorUnoKeyTyped
+
+    private void txtEnteroDosKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtEnteroDosKeyTyped
+        // TODO add your handling code here:
+        char c = evt.getKeyChar();
+
+        if (!Character.isDigit(c) && c != '-') {
+            getToolkit();
+
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtEnteroDosKeyTyped
+
+    private void txtNumeradorDosKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNumeradorDosKeyTyped
+        // TODO add your handling code here:
+        char c = evt.getKeyChar();
+
+        if (!Character.isDigit(c) && c != '-') {
+            getToolkit();
+
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtNumeradorDosKeyTyped
+
+    private void txtDenominadorDosKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDenominadorDosKeyTyped
+        // TODO add your handling code here:
+        char c = evt.getKeyChar();
+
+        if (!Character.isDigit(c) && c != '-') {
+            getToolkit();
+
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtDenominadorDosKeyTyped
+
+    private void cmdCalcularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdCalcularActionPerformed
+        // TODO add your handling code here:
+        
+        int op, e1, n1, d1, e2, n2, d2, e3, n3, d3;
+        Mixto f1, f2, f3=null;
+        
+        
+    }//GEN-LAST:event_cmdCalcularActionPerformed
 
     /**
      * @param args the command line arguments
@@ -155,9 +286,9 @@ public class Principal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JComboBox<String> cmbOperaciones;
+    private javax.swing.JButton cmdCalcular;
+    private javax.swing.JButton cmdLimpiar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
