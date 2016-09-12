@@ -5,7 +5,9 @@
  */
 package interfaz;
 
+import clase.DenominadorCeroException;
 import clase.Mixto;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -20,7 +22,7 @@ public class Principal extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(this);
         txtEnteroUno.requestFocusInWindow();
-        
+
     }
 
     /**
@@ -88,6 +90,11 @@ public class Principal extends javax.swing.JFrame {
         cmdLimpiar.setFont(new java.awt.Font("Arial", 2, 14)); // NOI18N
         cmdLimpiar.setForeground(new java.awt.Color(255, 255, 255));
         cmdLimpiar.setText("Limpiar");
+        cmdLimpiar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmdLimpiarActionPerformed(evt);
+            }
+        });
         jPanel2.add(cmdLimpiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 330, 130, 40));
 
         cmdCalcular.setBackground(new java.awt.Color(0, 0, 0));
@@ -243,12 +250,99 @@ public class Principal extends javax.swing.JFrame {
 
     private void cmdCalcularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdCalcularActionPerformed
         // TODO add your handling code here:
-        
-        int op, e1, n1, d1, e2, n2, d2, e3, n3, d3;
-        Mixto f1, f2, f3=null;
-        
-        
+
+        try {
+            int op, e1, n1, d1, e2, n2, d2, e3, n3, d3;
+            Mixto f1, f2, f3 = null;
+
+            if (txtEnteroUno.getText().trim().isEmpty() && txtNumeradorUno.getText().trim().isEmpty() && txtDenominadorUno.getText().trim().isEmpty() && txtEnteroDos.getText().trim().isEmpty() && txtNumeradorDos.getText().trim().isEmpty() && txtDenominadorDos.getText().trim().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "por favor LLENE  los campos vacios", "ERROR", JOptionPane.ERROR_MESSAGE);
+            } else if (txtEnteroUno.getText().trim().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "por favor agrege la parte enera de la primera fraccion", "ERROR", JOptionPane.ERROR_MESSAGE);
+            } else if (txtNumeradorUno.getText().trim().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "por favor agrege el numerador de la primera fraccion", "ERROR", JOptionPane.ERROR_MESSAGE);
+            } else if (txtDenominadorUno.getText().trim().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "por favor agrege el denominador de la primera fraccion", "ERROR", JOptionPane.ERROR_MESSAGE);
+            } else if (txtEnteroDos.getText().trim().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "por favor agrege la parte entera de la segunda fraccion", "ERROR", JOptionPane.ERROR_MESSAGE);
+            } else if (txtNumeradorDos.getText().trim().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "por favor agrege el numerador de la segunda fraccion", "ERROR", JOptionPane.ERROR_MESSAGE);
+            } else if (txtDenominadorDos.getText().trim().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "por favor agrege el denominador de la segunda fraccion", "ERROR", JOptionPane.ERROR_MESSAGE);
+            } else {
+
+                op = cmbOperaciones.getSelectedIndex();
+                e1 = Integer.parseInt(txtEnteroUno.getText());
+                n1 = Integer.parseInt(txtNumeradorUno.getText());
+                d1 = Integer.parseInt(txtDenominadorUno.getText());
+                e2 = Integer.parseInt(txtEnteroDos.getText());
+                n2 = Integer.parseInt(txtNumeradorDos.getText());
+                d2 = Integer.parseInt(txtDenominadorDos.getText());
+
+                f1 = new Mixto(e1, n1, d1);
+                f2 = new Mixto(e2, n2, d2);
+
+                switch (op) {
+                    case 0:
+                        f3 = f1.sumar(f2);
+                        break;
+
+                    case 1:
+                        f3 = f1.restar(f2);
+                        break;
+
+                    case 2:
+                        f3 = f1.multiplicar(f2);
+                        break;
+
+                    case 3:
+                        f3 = f1.division(f2);
+                        break;
+                }
+
+                e3 = f3.getEntero();
+                n3 = f3.getNumerador();
+                d3 = f3.getDenominador();
+
+                txtEnteroTres.setText("" + e3);
+                txtNumeradorTres.setText("" + n3);
+                txtDenominadorTres.setText("" + d3);
+
+                if (((e3 * d3) + n3) < 0 && d3 < 0) {
+                    txtNumeradorCuatro.setText("" + ((e3 * d3) + n3) * -1);
+                    txtDenominadorCuatro.setText("" + (d3 * -1));
+                } else {
+                    txtNumeradorCuatro.setText("" + ((e3 * d3) + n3));
+                    txtDenominadorCuatro.setText("" + d3);
+                }
+
+            }
+        } catch (DenominadorCeroException k) {
+            JOptionPane.showMessageDialog(null, k.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
+        } catch (NumberFormatException k) {
+            JOptionPane.showMessageDialog(null, "hay digitos invalidos, por favor corrijalos", "ERROR", JOptionPane.WARNING_MESSAGE);
+
+        }
+
+
     }//GEN-LAST:event_cmdCalcularActionPerformed
+
+    private void cmdLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdLimpiarActionPerformed
+        // TODO add your handling code here:
+        txtEnteroUno.setText("");
+        txtEnteroDos.setText("");
+        txtEnteroTres.setText("");
+        txtNumeradorUno.setText("");
+        txtNumeradorDos.setText("");
+        txtNumeradorTres.setText("");
+        txtNumeradorCuatro.setText("");
+        txtDenominadorUno.setText("");
+        txtDenominadorDos.setText("");
+        txtDenominadorTres.setText("");
+        txtDenominadorCuatro.setText("");
+        cmbOperaciones.setSelectedIndex(0);
+        txtEnteroUno.requestFocusInWindow();
+    }//GEN-LAST:event_cmdLimpiarActionPerformed
 
     /**
      * @param args the command line arguments
